@@ -1,5 +1,4 @@
 #!/bin/bash
-docker run --name ubuntu_bash --rm -i -t ubuntu bash
 
 #run docker in interactive
 sudo docker run -it --rm mariadb bash
@@ -13,6 +12,7 @@ sudo docker exec -it mariadb bash
 #change bind address
 /etc/mysql/mariadb.conf.d/50-server.cnf
 bind-address = 0.0.0.0
+
 ##create user + user access mysql database
 # creates user 'test' and sets user access for email database
 grant all on emails.* to 'test'@'' identified by '123456';
