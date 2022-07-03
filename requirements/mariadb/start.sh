@@ -10,6 +10,9 @@ sudo docker run -p 127.0.0.1:3306:3306 --name mariadb -t -d mariadb
 # exec
 sudo docker exec -it mariadb bash
 
+#change bind address
+/etc/mysql/mariadb.conf.d/50-server.cnf
+bind-address = 0.0.0.0
 ##create user + user access mysql database
 # creates user 'test' and sets user access for email database
 grant all on emails.* to 'test'@'' identified by '123456';
