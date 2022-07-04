@@ -1,11 +1,11 @@
 clean:
-	@docker rm -f nginx
+	@sudo docker rm -f nginx
 
 build:
-	@docker build . -t nginx
+	@sudo docker build . -t nginx
 
 run: build
-	@docker run -t -d -p 443:443 --name nginx nginx
+	@sudo docker run -t -d -p 443:443 --name nginx nginx
 
 re: clean build run
 
