@@ -1,0 +1,28 @@
+version: '2'
+services:
+  wordpress:
+    image: wordpress
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: a
+      WORDPRESS_DB_NAME: wordpress
+    links:
+      - db:mysql
+    ports:
+      - 8000:80
+    #network_mode: "none"
+    restart: always
+
+  db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: a
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: root
+      MYSQL_PASSWORD: a
+    ports:
+      - 8001:3306
+    volumes:
+      - ./configs/etc/mysql/my.cnf:/etc/mysql/my.cnf
+    restart: always

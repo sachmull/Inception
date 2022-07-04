@@ -1,9 +1,17 @@
-#base img
+# Base img
 FROM debian:buster-20220509
 
-#install mariadb
+# Install mariadb
 RUN apt-get update && apt-get -y install mariadb-server mariadb-client
-ENTRYPOINT service mysql restart && bash
+COPY 50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
+# Create mysql database and user
+ENTRYPOINT \
+	service mysql restart \
+	&& mysql -u root -e "CREATE DATABASE wp_data" \
+	&& mysql -u root -e "CREATE USER 'wp_user'@'' IDENTIFIED BY 'a'" \
+	&& mysql -u root -e "GRANT ALL PRIVILEGES ON wp_data.* TO 'wp_user'@''" \
+	&& bash
+
+# Expose port to connect to
 EXPOSE 3306
-# ENTRYPOINT ["bash","entrypoint.prod.sh"]
