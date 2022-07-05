@@ -1,8 +1,14 @@
 version: '3'
+
+volumes:
+  mariadb_vol:
+
 services:
   mariadb:
     build: ./mariadb/
+    container_name: mariadb
+    tty: true
     ports:
-      - "3306:3306"
-    #volumes:
-      #- persisten_db:/var/lib/mysql/
+      - 127.0.0.1:3306:3306
+    volumes:
+      - mariadb_vol:/var/lib/mysql
