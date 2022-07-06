@@ -1,10 +1,10 @@
-version: '3'
+version: '3.5'
 
 volumes:
   mariadb_vol:
   wordpress_vol:
 networks:
-  wpsite:
+  wpsite: {}
 
 services:
   mariadb:
@@ -17,12 +17,11 @@ services:
       - mariadb_vol:/var/lib/mysql
     restart: always
     environment:
-      MYSQL_RANDOM_ROOT_PASSWORD: '1'
-      MYSQL_DATABASE: wp_data
-      MYSQL_USER: wp_user
-      MYSQL_PASSWORD: a
-    networks:
-      - wpsite
+      DB_NAME: wp_data
+      DB_USER: wp_user
+      DB_PASSWORD: a
+      DB_ROOT_PASSWORD: '1'
+      DB_HOST: mariadb
     
   wordpress:
     depends_on:
@@ -33,13 +32,11 @@ services:
     volumes:
       - wordpress_vol:/var/www/html
     restart: always
-    command: rm /var/www/html/index.html && cp /usr/share/wordpress/* /var/www/html
+    command: rm /var/www/html/index.html && cp -r /usr/share/wordpress/* /var/www/html
     ports:
-      - '8080:80'
+      - '9000:9000'
     environment:
-      WORDPRESS_DB_HOST: mariadb:3306
+      WORDPRESS_DB_HOST: mariadb
       WORDPRESS_DB_USER: wp_user
       WORDPRESS_DB_PASSWORD: a
       WORDPRESS_DB_NAME: wp_data
-    networks:
-      - wpsite

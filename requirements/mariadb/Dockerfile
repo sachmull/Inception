@@ -2,7 +2,9 @@
 FROM debian:buster-20220509
 
 # Install mariadb
-RUN apt-get update && apt-get -y install mariadb-server mariadb-client
+RUN apt-get update && apt-get -y install mariadb-server \
+	&& rm -rf /var/lib/apt/lists/*
+
 COPY 50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
 # Create mysql database and user
