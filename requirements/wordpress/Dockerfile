@@ -5,7 +5,7 @@ EXPOSE 9000
 #install nginx
 RUN apt update -y \
 	&& apt-get update -y \
-	&& apt-get php7.3-fpm php7.3-mysql \
+	&& apt-get install -y php7.3-fpm php7.3-mysql \
 	&& mkdir /usr/share/wordpress \ 
 	&& cd /usr/share/wordpress/ \
 	&& apt-get install -y wget \
