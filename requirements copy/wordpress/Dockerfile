@@ -17,8 +17,8 @@ RUN apt update -y \
 	&& mv wordpress/* . \
 	&& rm -rf wordpress \
 	&& rm -rf /var/lib/apt/lists/* \
-	&& chown -R www-data:www-data /var/www/html/* \
-	&& chown -R 755 /var/www/html/*
+	&& chown -R www-data:www-data /var/www/* \
+	&& chown -R 755 /var/www/*
 
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d
 

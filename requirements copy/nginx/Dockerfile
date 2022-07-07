@@ -16,4 +16,4 @@ EXPOSE 443
 RUN chmod +x /var/www/nginx_start.sh
 
 # Restart nginx service & go in bash
-ENTRYPOINT [ "/var/www/nginx_start.sh" ]
+ENTRYPOINT [ "var/www/nginx_start.sh" ]
