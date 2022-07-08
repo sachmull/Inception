@@ -4,7 +4,7 @@ clean:
 build:
 	@sudo docker build . -t wordpress
 
-run: build
+run:
 	@sudo docker run --name wordpress -t -d wordpress
 	@sudo docker exec -it wordpress bash
 

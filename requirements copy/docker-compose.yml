@@ -1,56 +1,16 @@
 version: '3.5'
 
-volumes:
-  mariadb_vol:
-  wordpress_vol:
+# volumes:
+#   mariadb_vol:
+#   wordpress_vol:
 networks:
   wpsite: {}
 
-
-services:
-  mariadb:
-    build: ./mariadb/
-    # container_name: mariadb
-    tty: true
-    ports:
-      - "3306:3306"
-    volumes:
-      - mariadb_vol:/var/lib/mysql
-    restart: always
-    environment:
-      DB_NAME: wp_data
-      DB_USER: wp_user
-      DB_PASSWORD: a
-      DB_ROOT_PASSWORD: '1'
-      DB_HOST: mariadb
-    
-  wordpress:
-    depends_on:
-      - mariadb
-    # links:
-    #   - mariadb
-    build: ./wordpress/
-    container_name: wordpress
-    tty: true
-    volumes:
-      - wordpress_vol:/var/www/html
-    restart: always
-    command: rm /var/www/html/index.html && cp -r /usr/share/wordpress/* /var/www/html
-    environment:
-      WORDPRESS_DB_NAME: wp_data
-      WORDPRESS_DB_USER: wp_user
-      WORDPRESS_DB_PASSWORD: a
-      WORDPRESS_DB_HOST: mariadb
-
   nginx:
-    depends_on:
-      - mariadb 
-      - wordpress
-    build: ./nginx
-    container_name: nginx
-    tty: true
-    volumes:
-      - wordpress_vol:/var/www/html
+    image: nginx:latest
+    # tty: true
+    # volumes:
+    #   - wordpress_vol:/var/www/html
     restart: always
     ports:
       - "443:443"

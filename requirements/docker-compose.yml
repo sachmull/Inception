@@ -1,10 +1,12 @@
 version: '3.5'
 
 volumes:
-  mariadb_vol:
   wordpress_vol:
+  mariadb_vol:
 networks:
-  wpsite: {}
+  wpsite:
+    name: wpsite
+    driver: bridge
 
 
 services:
@@ -22,33 +24,36 @@ services:
       MYSQL_DB_PASSWORD: a
       MYSQL_DB_ROOT_PASSWORD: '1'
       MYSQL_DB_HOST: mariadb
+    networks:
+      - wpsite
     
   wordpress:
     depends_on:
       - mariadb
     build: ./wordpress/
-    container_name: wordpress
     tty: true
-    ports:
-      - "9000:9000"
     volumes:
       - wordpress_vol:/var/www/html
     restart: always
-    command: rm /var/www/html/index.html && cp -r /usr/share/wordpress/* /var/www/html
     environment:
       WORDPRESS_DB_NAME: wp_data
       WORDPRESS_DB_USER: wp_user
       WORDPRESS_DB_PASSWORD: a
       WORDPRESS_DB_HOST: mariadb
+    networks:
+      - wpsite
+
   nginx:
     depends_on:
       - mariadb 
       - wordpress
     build: ./nginx
-    container_name: nginx
     tty: true
     volumes:
       - wordpress_vol:/var/www/html
     restart: always
     ports:
       - "443:443"
+    networks:
+      - wpsite
+
