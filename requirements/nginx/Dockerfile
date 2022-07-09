@@ -9,7 +9,7 @@ RUN apt-get -y update \
 						openssl
 
 # Copy website and nginx config file
-COPY ./conf/nginx.conf /etc/nginx/sites-available/default
+COPY ./conf/default.conf /etc/nginx/sites-enabled/default
 COPY ./tools/nginx_start.sh /var/
 
 RUN chmod +x /var/nginx_start.sh
