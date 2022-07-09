@@ -18,3 +18,11 @@ clean: fclean
 fclean:
 	@sudo docker rm -f $$(sudo docker container ls -aq)
 	@sudo docker rmi -f $$(sudo docker image ls -aq)
+	@sudo docker volume rm -f $(sudo docker volume ls)
+#	@sudo docker system prune -a --volumes
+
+volume:
+	@sudo docker volume rm -f $(sudo docker volume ls)
+
+image:
+	@sudo docker image rm $(sudo docker image ls)
