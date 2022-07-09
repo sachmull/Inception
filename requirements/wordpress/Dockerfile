@@ -18,7 +18,7 @@ ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /u
 RUN cd /var/www/html \
 	&& tar -xvf latest.tar.gz --exclude=latest.tar.gz \
 	&& rm -rf latest.tar.gz \
-	&& chmod +x /usr/local/bin/wp-cli.phar / \
+	&& chmod +x /usr/local/bin/wp-cli.phar \
 	&& mv /usr/local/bin/wp-cli.phar /usr/local/bin/wp
 
 RUN	mkdir /run/php

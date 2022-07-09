@@ -19,11 +19,11 @@ services:
       - mariadb_vol:/var/lib/mysql
     restart: always
     environment:
-      MYSQL_DB_NAME: wp_data
-      MYSQL_DB_USER: wp_user
-      MYSQL_DB_PASSWORD: a
-      MYSQL_DB_ROOT_PASSWORD: '1'
-      MYSQL_DB_HOST: mariadb
+      MYSQL_DB_NAME: ${DB_NAME}
+      MYSQL_DB_USER: ${DB_USER}
+      MYSQL_DB_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DB_HOST: ${DB_HOST}
     networks:
       - wpsite
     
@@ -35,11 +35,8 @@ services:
     volumes:
       - wordpress_vol:/var/www/html
     restart: always
-    environment:
-      WORDPRESS_DB_NAME: wp_data
-      WORDPRESS_DB_USER: wp_user
-      WORDPRESS_DB_PASSWORD: a
-      WORDPRESS_DB_HOST: mariadb
+    env_file:
+      .env
     networks:
       - wpsite
 
