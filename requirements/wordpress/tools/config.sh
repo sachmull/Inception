@@ -1,4 +1,7 @@
+#!/bin/bash
+
 cd /var/www/html/
+
 wp core config	--dbhost=$DB_HOST \
 				--dbname=$DB_NAME \
 				--dbuser=$DB_USER \
@@ -15,5 +18,5 @@ wp core install --title=$WP_TITLE \
 wp user create $WP_USER $WP_USER_MAIL --role=author --user_pass=$WP_USER_PASSWORD --allow-root
 cd -
 
-# run php-fpm7.3 listening for CGI request and force to stay in foreground and ignore daemonize option fromm configuration file
+# php-fpm listening for fastcgi request || -F to stay in foreground and dont deamonize
 php-fpm7.3 -F
