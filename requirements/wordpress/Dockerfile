@@ -8,9 +8,9 @@ RUN apt update -y \
 	&& apt-get install -y	php7.3-fpm \
 							php7.3-mysql \
 							mariadb-client \
-	&& rm -rf /var/lib/apt/lists/* 
-	# && chown -R www-data:www-data /var/www/html/* \
-	# && chown -R 755 /var/www/html/*
+	&& rm -rf /var/lib/apt/lists/* \
+	&& chown -R www-data:www-data /var/www/html/* \
+	&& chown -R 755 /var/www/html/*
 
 ADD https://wordpress.org/latest.tar.gz /var/www/html/latest.tar.gz
 ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /usr/local/bin/
