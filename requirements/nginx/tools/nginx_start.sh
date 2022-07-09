@@ -7,4 +7,5 @@ echo "Nginx: ssl is set up!";
 fi
 
 service nginx restart
-bash
+nginx -g 'daemon off;'
+# bash

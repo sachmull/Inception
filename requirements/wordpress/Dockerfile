@@ -16,18 +16,15 @@ ADD https://wordpress.org/latest.tar.gz /var/www/html/latest.tar.gz
 ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /usr/local/bin/
 
 RUN cd /var/www/html \
-	&& tar -xvf latest.tar.gz \
+	&& tar -xvf latest.tar.gz --exclude=latest.tar.gz \
 	&& rm -rf latest.tar.gz \
-	&& mv ./wordpress/* . \
-	&& rm -rf wordpress/ \
-	&& cd /usr/local/bin/ \
-	&& chmod +x wp-cli.phar / \
-	&& mv wp-cli.phar /usr/local/bin/wp
-	# && php-fpm7.3 -F
+	&& chmod +x /usr/local/bin/wp-cli.phar / \
+	&& mv /usr/local/bin/wp-cli.phar /usr/local/bin/wp
+
+RUN	mkdir /run/php
 
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d
+COPY ./tools/config.sh /var/www/config.sh
 
-
-#restart nginx service & go in bash
-ENTRYPOINT  bash 
-#service php7.3-fpm start &&
+RUN chmod +x /var/www/config.sh
+ENTRYPOINT  ["bash", "/var/www/config.sh"]
