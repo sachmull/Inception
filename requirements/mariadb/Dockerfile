@@ -11,7 +11,7 @@ COPY 50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 ENTRYPOINT \
 	service mysql start \
 	&& mysql -u root -e "CREATE DATABASE IF NOT EXISTS wp_data" \
-	&& mysql -u root -e "CREATE USER IF NOT EXISTS 'wp_user'@'' IDENTIFIED BY 'a'" \
+	&& mysql -u root -e "CREATE USER IF NOT EXISTS '${MYSQL_DB_USER}'@'' IDENTIFIED BY 'a'" \
 	&& mysql -u root -e "GRANT ALL PRIVILEGES ON wp_data.* TO 'wp_user'@''"  \
 	&& mysql -u root -e "FLUSH PRIVILEGES" \
 	&& bash

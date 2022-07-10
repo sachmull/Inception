@@ -13,16 +13,8 @@ rm:
 connect:
 	@sudo mysql -h 127.0.0.1 -P 3306 -u wp_user -pa wp_data
 
-clean: fclean
+clean:
+	@sudo docker system prune -af
 
-fclean:
-	@sudo docker rm -f $$(sudo docker container ls -aq)
-	@sudo docker rmi -f $$(sudo docker image ls -aq)
-	@sudo docker volume rm -f $(sudo docker volume ls)
-#	@sudo docker system prune -a --volumes
-
-volume:
-	@sudo docker volume rm -f $(sudo docker volume ls)
-
-image:
-	@sudo docker image rm $(sudo docker image ls)
+fclean: clean
+	@sudo docker system prune -f --volumes

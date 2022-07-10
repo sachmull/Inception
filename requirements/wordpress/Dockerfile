@@ -8,9 +8,6 @@ RUN apt update -y \
 	&& apt-get install -y	php7.3-fpm \
 							php7.3-mysql \
 							mariadb-client \
-							# wget \
-	&& cd /var/www/html \
-	# && wget -y https://wordpress.org/latest.tar.gz \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& chown -R www-data:www-data /var/www/html/* \
 	&& chown -R 755 /var/www/html/*
@@ -22,6 +19,8 @@ RUN cd /var/www/html \
 	&& tar -xvf latest.tar.gz \
 	&& mv wordpress/* . \
 	&& rm -rf latest.tar.gz \
+	&& mv wordpress/* . \
+	&& rm -rf wordpress/ \
 	&& chmod +x /usr/local/bin/wp-cli.phar \
 	&& mv /usr/local/bin/wp-cli.phar /usr/local/bin/wp
 
