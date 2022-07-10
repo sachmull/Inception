@@ -1,5 +1,5 @@
-Mariadb
-- use env var in docker
+# Mariadb
+- [x] use env var in docker
 - dont use bash in dockerfile
 - port expose needed?
 - look that mariadb service is startet before wordpress can start

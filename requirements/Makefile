@@ -16,5 +16,5 @@ connect:
 clean:
 	@sudo docker system prune -af
 
-fclean: clean
-	@sudo docker system prune -f --volumes
+fclean:
+	@sudo docker system prune -f --volumes -a
