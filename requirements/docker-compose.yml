@@ -26,10 +26,16 @@ services:
       MYSQL_DB_HOST: ${DB_HOST}
     networks:
       - wpsite
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 500s
+      retries: 100
     
   wordpress:
     depends_on:
-      - mariadb
+      mariadb: 
+        condition: service_healthy
     build: ./wordpress/
     container_name: wordpress
     tty: true
