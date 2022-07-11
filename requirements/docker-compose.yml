@@ -11,7 +11,14 @@ networks:
 
 services:
   mariadb:
-    build: ./mariadb/
+    build:
+      context: ./mariadb/
+      args:
+        - DB_NAME=${DB_NAME}
+        - DB_USER=${DB_USER}
+        - DB_PASSWORD=${DB_PASSWORD}
+        - DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+        - DB_HOST=${DB_HOST}
     tty: true
     volumes:
       - mariadb_vol:/var/lib/mysql
