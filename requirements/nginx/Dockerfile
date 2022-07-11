@@ -6,10 +6,12 @@ FROM debian:buster-20220509
 RUN apt-get -y update \
 	&& apt-get -y install \
 						nginx \
-						openssl
+						openssl \
+	&& rm -rf /var/lib/apt/lists/*
 
 # Copy website and nginx config file
-COPY ./conf/default.conf /etc/nginx/sites-enabled/default
+
+COPY ./conf/default.conf /etc/nginx/sites-available/lpfleide.42.fr
 COPY ./tools/nginx_start.sh /var/
 
 RUN chmod +x /var/nginx_start.sh

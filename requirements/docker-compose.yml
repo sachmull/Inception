@@ -13,24 +13,18 @@ services:
   mariadb:
     build: ./mariadb/
     tty: true
-    ports:
-      - "3306:3306"
     volumes:
       - mariadb_vol:/var/lib/mysql
     restart: always
-    environment:
-      MYSQL_DB_NAME: ${DB_NAME}
-      MYSQL_DB_USER: ${DB_USER}
-      MYSQL_DB_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_DB_HOST: ${DB_HOST}
+    env_file:
+      .env
     networks:
       - wpsite
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       interval: 5s
-      timeout: 500s
-      retries: 100
+      timeout: 50s
+      retries: 10
     
   wordpress:
     depends_on:
