@@ -17,7 +17,7 @@ wp core install --title=${WP_TITLE} \
 				--url=${WP_URL} \
 				--allow-root
 
-wp user get user1 --allow-root --path='/var/www/html/' --field=user_login
+wp user get user1 --allow-root --path='/var/www/html/' --field=user_login > /dev/null
 if  [ $? -eq 1 ] ; then
 wp user create ${WP_USER} ${WP_USER_MAIL} --role=author --user_pass=${WP_USER_PASSWORD} --allow-root
 fi 
