@@ -84,6 +84,14 @@ services:
       - static_vol:/var/www/tmp
     tty: true
     restart: always
+
+  adminer:
+    build: ./requirements/adminer
+    depends_on: 
+      - mariadb
+    restart: always
+    tty: true
+    volumes:
+      - wordpress_vol:/var/www/html
     networks:
       - wpsite
-
