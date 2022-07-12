@@ -10,6 +10,7 @@ nginx_file="nginx_log";
 redis_file="redis_log";
 static_file="static_log";
 wordpress_file="wordpress_log";
+adminer_file="adminer_log";
 
 # Log funnction
 # $1 log file
@@ -37,6 +38,7 @@ check_reachability()
 
 while [ 1 ]
 do
+    log $adminer_file $(check_reachability "adminer")
     log $ftp_file $(check_reachability "ftp")
     log $mariadb_file $(check_reachability "mariadb")
     log $nginx_file $(check_reachability "nginx")
