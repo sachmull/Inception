@@ -11,6 +11,7 @@ networks:
 
 services:
   mariadb:
+    container_name: mariadb
     build: ./mariadb/
     tty: true
     ports:
@@ -48,6 +49,7 @@ services:
       - wpsite
 
   nginx:
+    container_name: nginx
     depends_on:
       - mariadb 
       - wordpress
@@ -60,4 +62,18 @@ services:
       - "443:443"
     networks:
       - wpsite
+
+  ftp:
+    tty: true
+    depends_on:
+    - mariadb
+    - wordpress
+    - nginx
+    container_name: ftp
+    build: ./ftp
+    volumes:
+      - wordpress_vol:/etc/ftp/
+    restart: always
+    ports:
+      - "21:21"
 
