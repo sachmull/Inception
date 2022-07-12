@@ -73,12 +73,13 @@ services:
     - wordpress
     - nginx
     container_name: ftp
-    build: ./ftp
+    build: ./requirements/ftp
     volumes:
       - wordpress_vol:/etc/ftp/wordpress
     restart: always
     ports:
       - "21:21"
+
   redis:
     depends_on:
       - wordpress
