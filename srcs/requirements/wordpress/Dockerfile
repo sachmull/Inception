@@ -3,8 +3,8 @@ FROM debian:buster-20220509
 
 #install nginx
 COPY ./tools /var/www/html/
-RUN apt update -y \
-	&& apt-get update -y \
+
+RUN apt-get update -y \
 	&& apt-get install -y	php7.3-fpm \
 							php7.3-mysql \
 							mariadb-client \
@@ -25,6 +25,7 @@ RUN cd /var/www/html \
 
 RUN	mkdir /run/php
 
+COPY ./conf/wp-config.php /var/www/
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d
 COPY ./tools/config.sh /var/www/config.sh
 
