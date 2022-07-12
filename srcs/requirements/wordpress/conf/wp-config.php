@@ -60,9 +60,12 @@ define( 'AUTH_SALT',         'o~v.nZ;m:;CF,<H!qNc<t&7h_~zw)]5(NBCpifI!3Q=_J~K4@W
 define( 'SECURE_AUTH_SALT',  ';2Da5l5lxYIRA&gGZ|fx8KHcb4?5Zn;}ec&7- =B&>59-f%;DDgn0:%~qa2>Od&B' );
 define( 'LOGGED_IN_SALT',    'j-kn.)$$bu>a6J|=?s0x*_!@.GilgGVp4k&dFV!#32z_T*k2^x7w()vx7X4=Q37:' );
 define( 'NONCE_SALT',        'Z>a%l+`Mx5=+7%4&ZFXD<fLXj.oEtkD-f:,tpoe?~VL)QOIBbJ3{52LZemkfa.fe' );
-define( 'WP_CACHE_KEY_SALT', 'Bv8kL-ViYZvz.Ys3Ksb>kmW]Yi!Pd5&NcG.-D!<E8jS!1<TsJ+O65(w=]Q]^cn]j' );
+define( 'WP_CACHE_KEY_SALT', 'lpfleide.42.fr' );
 
 define('WP_CACHE', true);
+define('WP_REDIS_HOST', 'redis');
+define('WP_REDIS_PORT', 6379);
+define('FS_METHOD','direct');
 /**#@-*/
 
 /**

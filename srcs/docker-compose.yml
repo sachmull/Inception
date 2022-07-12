@@ -3,6 +3,7 @@ version: '3.5'
 volumes:
   wordpress_vol:
   mariadb_vol:
+  static_vol:
 networks:
   wpsite:
     name: wpsite
@@ -51,10 +52,12 @@ services:
     depends_on:
       - mariadb 
       - wordpress
+      - static
     build: ./requirements/nginx/
     tty: true
     volumes:
       - wordpress_vol:/var/www/html
+      - static_vol:/var/www/tmp
     restart: always
     ports:
       - "443:443"
@@ -63,7 +66,6 @@ services:
 
   redis:
     depends_on:
-      - mariadb 
       - wordpress
     build: ./requirements/redis/
     tty: true
@@ -72,6 +74,15 @@ services:
     restart: always
     ports:
       - "6379:6379"
+    networks:
+      - wpsite
+
+  static:
+    build: ./requirements/static
+    volumes:
+      - static_vol:/var/www/tmp
+    tty: true
+    restart: always
     networks:
       - wpsite
 

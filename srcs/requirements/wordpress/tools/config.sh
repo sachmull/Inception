@@ -16,7 +16,7 @@ wp core install --title=${WP_TITLE} \
 				--admin_email=${WP_ADMIN_MAIL} \
 				--url=${WP_URL} \
 				--allow-root \
-				--skip-emails
+				--skip-email
 
 wp user get user1 --allow-root --path='/var/www/html/' --field=user_login > /dev/null
 if  [ $? -eq 1 ] ; then
@@ -25,6 +25,6 @@ fi
 cd -
 
 rm -rf /var/www/html/wp-config.php
-mv /var/www/wp-config.php /var/www/html/wp-config.php
+cp /var/www/wp-config.php /var/www/html/wp-config.php
 # php-fpm listening for fastcgi request || -F to stay in foreground and dont deamonize
 php-fpm7.3 -F

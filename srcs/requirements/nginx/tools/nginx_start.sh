@@ -1,6 +1,8 @@
 #!/bin/bash
 
 ln -s /etc/nginx/sites-available/lpfleide.42.fr /etc/nginx/sites-enabled/
+ln -s /etc/nginx/sites-available/lpfleide.fr /etc/nginx/sites-enabled/
+
 
 if [ ! -f /etc/ssl/certs/nginx.crt ]; then
 echo "Nginx: setting up ssl ...";

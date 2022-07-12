@@ -7,9 +7,9 @@ RUN apt-get update -y \
 				redis-server \
 				php7.3-redis
 
-ADD https://assets.digitalocean.com/articles/wordpress_redis/object-cache.php /var/www/html/wp-content/
+# ADD https://assets.digitalocean.com/articles/wordpress_redis/object-cache.php /var/www/html/wp-content/
 
 COPY ./conf/redis.conf /var/www/redis.conf
 
-ENTRYPOINT bash
+ENTRYPOINT service redis-server start && bash
 CMD cat /var/www/redis.conf >> /etc/redis/redis.conf

@@ -12,9 +12,12 @@ RUN apt-get -y update \
 # Copy website and nginx config file
 
 COPY ./conf/default.conf /etc/nginx/sites-available/lpfleide.42.fr
+COPY ./conf/static_page.conf /etc/nginx/sites-available/lpfleide.fr
+
 COPY ./tools/nginx_start.sh /var/
 
-RUN chmod +x /var/nginx_start.sh
-
+RUN chmod +x /var/nginx_start.sh 
 # Restart nginx service & go in bash
 ENTRYPOINT [ "/var/nginx_start.sh" ]
+
+CMD chown -R 755 /var/www/tmp/*
