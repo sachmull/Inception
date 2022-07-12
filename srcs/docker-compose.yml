@@ -79,6 +79,8 @@ services:
     restart: always
     ports:
       - "21:21"
+    networks:
+      - wpsite
 
   redis:
     depends_on:
@@ -97,6 +99,14 @@ services:
     build: ./requirements/static
     volumes:
       - static_vol:/var/www/tmp
+    tty: true
+    restart: always
+    networks:
+      - wpsite
+
+  log:
+    build: ./requirements/log
+    container_name: log
     tty: true
     restart: always
     networks:

@@ -5,8 +5,8 @@ RUN apt-get update \
     && apt-get install vsftpd -y
 
 RUN mkdir /etc/ftp && chmod a-w /etc/ftp
-#&& chmod +w /etc/ftp/wordpress/
-COPY ./vsftpd.conf /etc/vsftpd.conf
+
+COPY ./conf/vsftpd.conf /etc/vsftpd.conf
 RUN chown root /etc/vsftpd.conf
 
 EXPOSE 21
