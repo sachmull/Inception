@@ -3,41 +3,41 @@ version: '3.5'
 volumes:
   wordpress_vol:
   mariadb_vol:
+  static_vol:
 networks:
   wpsite:
     name: wpsite
-    driver: bridge
 
 
 services:
   mariadb:
-    container_name: mariadb
-    build: ./mariadb/
+    build:
+      context: ./requirements/mariadb/
+      args:
+        - DB_NAME=${DB_NAME}
+        - DB_USER=${DB_USER}
+        - DB_PASSWORD=${DB_PASSWORD}
+        - DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+        - DB_HOST=${DB_HOST}
     tty: true
-    ports:
-      - "3306:3306"
     volumes:
       - mariadb_vol:/var/lib/mysql
     restart: always
-    environment:
-      MYSQL_DB_NAME: ${DB_NAME}
-      MYSQL_DB_USER: ${DB_USER}
-      MYSQL_DB_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_DB_HOST: ${DB_HOST}
+    env_file:
+      .env
     networks:
       - wpsite
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       interval: 5s
-      timeout: 500s
-      retries: 100
+      timeout: 50s
+      retries: 10
     
   wordpress:
     depends_on:
       mariadb: 
         condition: service_healthy
-    build: ./wordpress/
+    build: ./requirements/wordpress/
     container_name: wordpress
     tty: true
     volumes:
@@ -53,10 +53,12 @@ services:
     depends_on:
       - mariadb 
       - wordpress
-    build: ./nginx
+      - static
+    build: ./requirements/nginx/
     tty: true
     volumes:
       - wordpress_vol:/var/www/html
+      - static_vol:/var/www/tmp
     restart: always
     ports:
       - "443:443"
@@ -76,4 +78,25 @@ services:
     restart: always
     ports:
       - "21:21"
+  redis:
+    depends_on:
+      - wordpress
+    build: ./requirements/redis/
+    tty: true
+    volumes:
+      - wordpress_vol:/var/www/html
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - wpsite
+
+  static:
+    build: ./requirements/static
+    volumes:
+      - static_vol:/var/www/tmp
+    tty: true
+    restart: always
+    networks:
+      - wpsite
 
