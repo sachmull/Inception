@@ -30,7 +30,7 @@ COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d
 COPY ./tools/config.sh /var/www/config.sh
 
 # Redis
-ADD https://assets.digitalocean.com/articles/wordpress_redis/object-cache.php /var/www/html/wp-content/
+#ADD https://assets.digitalocean.com/articles/wordpress_redis/object-cache.php /var/www/html/wp-content/
 
 RUN chmod +x /var/www/config.sh
 ENTRYPOINT  ["bash", "/var/www/config.sh"]
