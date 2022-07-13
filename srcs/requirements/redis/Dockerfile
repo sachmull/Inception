@@ -11,7 +11,9 @@ RUN apt-get update -y \
 
 COPY ./conf/redis.conf /var/www/redis.conf
 
+RUN sed -i 's/bind 127.0.0.1 ::1/bind 0.0.0.0/g' /etc/redis/redis.conf
+
 EXPOSE 6379
 
 ENTRYPOINT service redis-server start && bash
-CMD cat /var/www/redis.conf >> /etc/redis/redis.conf
+CMD cat /var/www/redis.conf >> /etc/redis/redis.conf 
