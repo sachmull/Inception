@@ -24,6 +24,11 @@ wp user create ${WP_USER} ${WP_USER_MAIL} --role=author --user_pass=${WP_USER_PA
 fi 
 cd -
 
+# Redis
+wp plugin install redis-cache  --allow-root
+wp plugin activate redis-cache --allow-root
+wp redis enable --allow-root
+
 rm -rf /var/www/html/wp-config.php
 cp /var/www/wp-config.php /var/www/html/wp-config.php
 # php-fpm listening for fastcgi request || -F to stay in foreground and dont deamonize
