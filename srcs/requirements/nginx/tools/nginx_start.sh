@@ -1,8 +1,15 @@
 #!/bin/bash
 
+# The available folder is used to store all config files
+# If a symbolic link is placed in the enabled folder the
+# server becomes actually reachable
+
 ln -s /etc/nginx/sites-available/lpfleide.42.fr /etc/nginx/sites-enabled/
 ln -s /etc/nginx/sites-available/lpfleide.fr /etc/nginx/sites-enabled/
 
+
+# Inside the .crt file a ssl certificate is stored, which is send to all clients
+# Inside the .key file a private ssl key is stored
 
 if [ ! -f /etc/ssl/certs/nginx.crt ]; then
 echo "Nginx: setting up ssl ...";

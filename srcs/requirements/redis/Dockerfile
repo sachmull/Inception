@@ -15,5 +15,9 @@ RUN sed -i 's/bind 127.0.0.1 ::1/bind 0.0.0.0/g' /etc/redis/redis.conf
 
 EXPOSE 6379
 
-ENTRYPOINT service redis-server start && bash
+RUN apt update -y && apt upgrade -y && apt-get install procps -y
+COPY ./tools/keep_alive.sh keep_alive.sh
+RUN chmod +x keep_alive.sh
+
+ENTRYPOINT service redis-server start && ./keep_alive.sh
 CMD cat /var/www/redis.conf >> /etc/redis/redis.conf 
