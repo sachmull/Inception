@@ -28,6 +28,8 @@ connect:
 
 clean:
 	@$(SRC); sudo docker system prune -af
+	@$(SRC); sudo docker rm -f $$(sudo docker container ls -aq)
+	@$(SRC); sudo docker rmi -f $$(sudo docker image ls -aq)
 	@$(STATE_DOWN)
 
 fclean:
