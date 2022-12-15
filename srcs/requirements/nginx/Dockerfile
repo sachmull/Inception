@@ -11,8 +11,8 @@ RUN apt-get -y update \
 
 # Copy website and nginx config file
 
-COPY ./conf/default.conf /etc/nginx/sites-available/lpfleide.42.fr
-COPY ./conf/static_page.conf /etc/nginx/sites-available/lpfleide.fr
+COPY ./conf/default.conf /etc/nginx/sites-available/sachmull.42.fr
+COPY ./conf/static_page.conf /etc/nginx/sites-available/sachmull.fr
 
 COPY ./tools/nginx_start.sh /var/
 
