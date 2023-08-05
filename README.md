@@ -1,4 +1,5 @@
 # Inception
+LEMP stack containerized with docker compose
 
-Docker Volumes are stored under: /var/lib/docker/volumes <br/>
-Open bash in a container: sudo docker exec -it CONTAINER bash <br />
+## Run
+Simply start the docker deamon then run make and connect to "https://127.0.0.1:443"
